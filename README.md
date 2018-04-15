@@ -6,7 +6,7 @@ Repository with tools for convert body in response to plain text
 
 Receive ReadCloser and transform to text with [pdftotext](https://www.xpdfreader.com/pdftotext-man.html)
 
-### Example Usage
+### Example
 
 create file `main.go` with content:
 ```go
