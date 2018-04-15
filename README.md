@@ -8,7 +8,7 @@ Receive ReadCloser and transform to text with [pdftotext](https://www.xpdfreader
 
 ### Example Usage
 
-main.go:
+create file `main.go`
 ```go
 package main
 
@@ -27,9 +27,9 @@ func main() {
 	fmt.Print(text)
 }
 ```
-
+run on command line
 ```sh
-go run main.go < valid.pdf
+go run main.go < pdf/test_files/valid.pdf
 ```
 ### Requirements
 
