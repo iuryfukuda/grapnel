@@ -7,7 +7,7 @@ import (
 	"os/exec"
 )
 
-func ToText(rc io.ReadCloser) (text string, err error) {
+func ToText(r io.Reader) (text string, err error) {
 	var bufText bytes.Buffer
 	var bufErr bytes.Buffer
 	subProcess := exec.Command(
@@ -16,8 +16,7 @@ func ToText(rc io.ReadCloser) (text string, err error) {
 	)
 	subProcess.Stdout = &bufText
 	subProcess.Stderr = &bufErr
-	subProcess.Stdin = rc
-	defer rc.Close()
+	subProcess.Stdin = r
 	err = subProcess.Start()
 	subProcess.Wait()
 	if bufErr.Len() > 0 {

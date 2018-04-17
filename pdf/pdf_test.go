@@ -8,7 +8,7 @@ import (
 	"github.com/iuryfukuda/grapnel/pdf"
 )
 
-func loadReadCloserOf(rpath string) io.ReadCloser {
+func loadReaderOf(rpath string) io.Reader {
 	lpath := "./test_files"
 	f, err := os.Open(lpath + "/" + rpath)
 	if err != nil {
@@ -23,8 +23,8 @@ func verboseTextErr(text string, err error) {
 }
 
 func TestSuccessConvertPdfToText(t *testing.T) {
-	rc := loadReadCloserOf("valid.pdf")
-	text, err := pdf.ToText(rc)
+	r := loadReaderOf("valid.pdf")
+	text, err := pdf.ToText(r)
 	if err != nil {
 		t.Errorf("Bad Test Success pdf to text %v", text)
 	}
@@ -32,8 +32,8 @@ func TestSuccessConvertPdfToText(t *testing.T) {
 }
 
 func TestErrorConvertInvalidPdfToText(t *testing.T) {
-	rc := loadReadCloserOf("invalid.pdf")
-	text, err := pdf.ToText(rc)
+	r := loadReaderOf("invalid.pdf")
+	text, err := pdf.ToText(r)
 	if err == nil {
 		t.Errorf("Bad Test Error pdf to invalid %v", err)
 	}
