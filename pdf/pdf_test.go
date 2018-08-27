@@ -2,40 +2,52 @@ package pdf_test
 
 import (
 	"os"
-	"io"
-	"log"
 	"testing"
+	"io/ioutil"
 	"github.com/iuryfukuda/grapnel/pdf"
 )
 
-func loadReaderOf(rpath string) io.Reader {
-	lpath := "./test_files"
-	f, err := os.Open(lpath + "/" + rpath)
+
+var lpath = "./testdata"
+
+func load(path string) ([]byte, error) {
+	f, err := os.Open(path)
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
-	return f
+	b, err := ioutil.ReadAll(f)
+	if err != nil {
+		return nil, err
+	}
+	return b, nil
 }
 
-func verboseTextErr(text string, err error) {
-	log.Print("TEXT:\n", text)
-	log.Print("ERR:\n", err)
+func mustLoad(t *testing.T, fn string) []byte {
+	b, err := load(lpath + "/" + fn)
+	if err != nil {
+		t.Fatalf("can't load file: %s", fn)
+	}
+	return b
 }
 
 func TestSuccessConvertPdfToText(t *testing.T) {
-	r := loadReaderOf("valid.pdf")
-	text, err := pdf.ToText(r)
+	b := mustLoad(t, "valid.pdf")
+	text, err := pdf.ToText(b)
 	if err != nil {
-		t.Errorf("Bad Test Success pdf to text %v", text)
+		t.Errorf("want nil, got: %s", err)
 	}
-	verboseTextErr(text, err)
+	if testing.Verbose() {
+		t.Log(text)
+	}
 }
 
 func TestErrorConvertInvalidPdfToText(t *testing.T) {
-	r := loadReaderOf("invalid.pdf")
-	text, err := pdf.ToText(r)
+	b := mustLoad(t, "invalid.pdf")
+	text, err := pdf.ToText(b)
 	if err == nil {
-		t.Errorf("Bad Test Error pdf to invalid %v", err)
+		t.Errorf("want error, got: %s", err)
 	}
-	verboseTextErr(text, err)
+	if testing.Verbose() {
+		t.Log(text)
+	}
 }

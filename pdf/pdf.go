@@ -1,27 +1,32 @@
 package pdf
 
 import (
-	"io"
 	"bytes"
 	"errors"
 	"os/exec"
 )
 
-func ToText(r io.Reader) (text string, err error) {
+func ToText(b [] byte) (text string, err error) {
 	var bufText bytes.Buffer
 	var bufErr bytes.Buffer
-	subProcess := exec.Command(
+	var cmd = exec.Command(
 		"pdftotext", "-nopgbrk", "-enc", "UTF-8",
 		"-eol", "unix", "-", "-",
 	)
-	subProcess.Stdout = &bufText
-	subProcess.Stderr = &bufErr
-	subProcess.Stdin = r
-	err = subProcess.Start()
-	subProcess.Wait()
+	cmd.Stdout = &bufText
+	cmd.Stderr = &bufErr
+	cmd.Stdin = bytes.NewBuffer(b)
+	err = cmd.Start()
+	if err != nil {
+		return
+	}
+	cmd.Wait()
 	if bufErr.Len() > 0 {
 		err = errors.New(bufErr.String())
 	}
+	if err != nil {
+		return
+	}
 	text = bufText.String()
-	return text, err
+	return
 }
