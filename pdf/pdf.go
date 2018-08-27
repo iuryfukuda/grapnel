@@ -1,12 +1,18 @@
 package pdf
 
 import (
+	"io"
 	"bytes"
 	"errors"
 	"os/exec"
 )
 
-func ToText(b [] byte) (text string, err error) {
+func ToText(b [] byte) (string, error) {
+	r := bytes.NewReader(b)
+	return ToTextFromReader(r)
+}
+
+func ToTextFromReader(r io.Reader) (string, error) {
 	var bufText bytes.Buffer
 	var bufErr bytes.Buffer
 	var cmd = exec.Command(
@@ -15,18 +21,17 @@ func ToText(b [] byte) (text string, err error) {
 	)
 	cmd.Stdout = &bufText
 	cmd.Stderr = &bufErr
-	cmd.Stdin = bytes.NewBuffer(b)
-	err = cmd.Start()
+	cmd.Stdin = r
+	err := cmd.Start()
 	if err != nil {
-		return
+		return "", err
 	}
 	cmd.Wait()
 	if bufErr.Len() > 0 {
 		err = errors.New(bufErr.String())
 	}
 	if err != nil {
-		return
+		return "", err
 	}
-	text = bufText.String()
-	return
+	return bufText.String(), nil
 }
