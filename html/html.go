@@ -18,6 +18,7 @@ func ToTextFromReader(r io.Reader) (string, error) {
 		hasText = false
 		z = html.NewTokenizer(r)
 	)
+
 Loop:
 	for {
 		tokenType := z.Next()
@@ -39,7 +40,7 @@ Loop:
 			}
 		case html.TextToken:
 			if hasText {
-				text += token.String()
+				text += token.String() + "\n"
 			}
 		}
 	}
