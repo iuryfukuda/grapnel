@@ -2,6 +2,33 @@
 
 Repository with tools to convert for text some content types
 
+# CLI
+
+## Install
+
+To get for run in cli you can get with:
+```sh
+go get github.com/iuryfukuda/grapnel
+```
+
+## Usage
+
+you can pass `-type` of content in "type" for parse reader directly:
+```sh
+cat pdf/testdata/valid.pdf | grapnel -t pdf
+```
+```sh
+cat html/testdata/valid.html | grapnel -t html
+```
+
+or you can not pass type for read all content and try detect the type:
+```sh
+cat pdf/testdata/valid.pdf | grapnel
+```
+```sh
+cat html/testdata/valid.html | grapnel
+```
+
 ## PDF
 
 Receive Pdf in []byte or io.Reader and transform him to text with [pdftotext](https://www.xpdfreader.com/pdftotext-man.html)
