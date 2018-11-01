@@ -5,7 +5,25 @@ import (
 	"bytes"
 	"errors"
 	"os/exec"
+
+	"github.com/iuryfukuda/grapnel/text"
 )
+
+func ToWords(b []byte) (map[string]int, error) {
+	s, err := ToText(b)
+	if err != nil {
+		return nil, err
+	}
+	return text.ToWords(s), nil
+}
+
+func ToWordsFromReader(r io.Reader) (map[string]int, error) {
+	s, err := ToTextFromReader(r)
+	if err != nil {
+		return nil, err
+	}
+	return text.ToWords(s), nil
+}
 
 func ToText(b [] byte) (string, error) {
 	r := bytes.NewReader(b)
