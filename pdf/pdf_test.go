@@ -4,7 +4,7 @@ import (
 	"os"
 	"testing"
 	"io/ioutil"
-	"github.com/iuryfukuda/grapnel/pdf"
+	"github.com/zbioe/grapnel/pdf"
 )
 
 

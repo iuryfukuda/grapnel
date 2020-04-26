@@ -4,7 +4,7 @@ import (
 	"testing"
 	"reflect"
 
-	"github.com/iuryfukuda/grapnel/text"
+	"github.com/zbioe/grapnel/text"
 )
 
 type testToWords struct {

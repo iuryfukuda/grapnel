@@ -9,8 +9,8 @@ import (
 	"strings"
 	"net/http"
 	"io/ioutil"
-	"github.com/iuryfukuda/grapnel/html"
-	"github.com/iuryfukuda/grapnel/pdf"
+	"github.com/zbioe/grapnel/html"
+	"github.com/zbioe/grapnel/pdf"
 )
 
 var readerType = flag.String("type", "", "pdf|html, keep empty for detect content")

@@ -6,7 +6,7 @@ import (
 
 	"golang.org/x/net/html"
 	"golang.org/x/net/html/atom"
-	"github.com/iuryfukuda/grapnel/text"
+	"github.com/zbioe/grapnel/text"
 )
 
 func ToWords(b []byte) (map[string]int, error) {

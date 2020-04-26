@@ -8,7 +8,7 @@ Repository with tools to convert for text some content types
 
 To get for run in cli you can get with:
 ```sh
-go get github.com/iuryfukuda/grapnel
+go get github.com/zbioe/grapnel
 ```
 
 ## Usage
@@ -42,7 +42,7 @@ package main
 import (
 	"os"
 	"fmt"
-	"github.com/iuryfukuda/grapnel/pdf"
+	"github.com/zbioe/grapnel/pdf"
 )
 
 func main() {
@@ -77,7 +77,7 @@ package main
 import (
 	"os"
 	"fmt"
-	"github.com/iuryfukuda/grapnel/html"
+	"github.com/zbioe/grapnel/html"
 )
 
 func main() {
